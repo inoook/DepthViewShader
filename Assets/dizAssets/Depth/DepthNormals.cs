@@ -5,7 +5,7 @@ using System.Collections;
 public class DepthNormals : MonoBehaviour {
 	
 	public Material mat;
-	bool showNormalColors = false;
+	bool showNormalColors = true;
 	
 	void Start () {
 		GetComponent<Camera>().depthTextureMode = DepthTextureMode.DepthNormals;
