@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: f66322ef07f114ec7afb895006689f1a
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - focalTransform: {instanceID: 0}
+  - dofHdrShader: {fileID: 4800000, guid: f4f8338b33a384642bffda23ef424982, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
