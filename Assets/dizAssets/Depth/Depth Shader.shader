@@ -1,4 +1,6 @@
-﻿// http://stackoverflow.com/questions/16759326/cg-omit-depth-write
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+// http://stackoverflow.com/questions/16759326/cg-omit-depth-write
 
 Shader "Custom/Depth Shader" {
 SubShader { // Unity chooses the subshader that fits the GPU best
@@ -18,7 +20,7 @@ SubShader { // Unity chooses the subshader that fits the GPU best
      v2f vert(float4 vertexPos : POSITION)
      {
         v2f OUT;
-        OUT.position = mul(UNITY_MATRIX_MVP, vertexPos);
+        OUT.position = UnityObjectToClipPos(vertexPos);
         OUT.projPos = ComputeScreenPos(OUT.position);
         return OUT;
      }

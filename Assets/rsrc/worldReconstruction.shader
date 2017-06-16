@@ -1,4 +1,8 @@
-﻿// https://gist.github.com/pixelmager/b259c6165f67d0039ca3
+﻿// Upgrade NOTE: commented out 'float4x4 _CameraToWorld', a built-in variable
+// Upgrade NOTE: replaced '_CameraToWorld' with 'unity_CameraToWorld'
+// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+// https://gist.github.com/pixelmager/b259c6165f67d0039ca3
 Shader "Custom/worldReconstruction" {
 	Properties {
 	   _MainTex ("", 2D) = "white" {}
@@ -13,7 +17,7 @@ Shader "Custom/worldReconstruction" {
 			#include "UnityCG.cginc"
 			
 			sampler2D _CameraDepthTexture;
-			float4x4 _CameraToWorld;
+			// float4x4 _CameraToWorld;
 			float3 _LightAsQuad;
 			
 			struct v2f {
@@ -23,7 +27,7 @@ Shader "Custom/worldReconstruction" {
 			};
 			v2f vert (appdata_base v){
 				v2f o;
-				o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
+				o.pos = UnityObjectToClipPos(v.vertex);
 				o.uv = ComputeScreenPos (o.pos);
 				o.ray = mul (UNITY_MATRIX_MV, v.vertex).xyz * float3(-1,-1,1);
 				
@@ -40,7 +44,7 @@ Shader "Custom/worldReconstruction" {
 				float depth = SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture, uv);
 				depth = Linear01Depth (depth);
 				float4 vpos = float4(i.ray * depth,1);
-				float3 wpos = mul (_CameraToWorld, vpos).xyz;
+				float3 wpos = mul (unity_CameraToWorld, vpos).xyz;
 				
 				return vpos;
 			}

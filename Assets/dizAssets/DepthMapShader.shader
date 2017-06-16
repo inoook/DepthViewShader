@@ -1,4 +1,6 @@
-﻿// http://wgld.org/d/webgl/w059.html
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+// http://wgld.org/d/webgl/w059.html
 // http://docs.unity3d.com/Manual/SL-DepthTextures.html
 // http://eraser85.wordpress.com/tag/opengl/
 Shader "Custom/DepthMapShader" {
@@ -33,13 +35,13 @@ Shader "Custom/DepthMapShader" {
 			{
 				v2f o;
 				
-				o.depth = mul (UNITY_MATRIX_MVP, v.vertex);
+				o.depth = UnityObjectToClipPos (v.vertex);
 				//UNITY_TRANSFER_DEPTH(o.depth);
 				
-				o.vPosLS = mul (UNITY_MATRIX_MVP, v.vertex);
+				o.vPosLS = UnityObjectToClipPos (v.vertex);
 				o.vPosLS /= o.vPosLS.z;
 				
-				o.pos = mul (UNITY_MATRIX_MVP, v.vertex);
+				o.pos = UnityObjectToClipPos (v.vertex);
 				o.uv = v.texcoord.xy;
 				o.color = v.color;
 				

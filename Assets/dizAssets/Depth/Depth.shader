@@ -1,4 +1,6 @@
-﻿Shader "Custom/Depth" {
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+Shader "Custom/Depth" {
 	Properties {
 	   _MainTex ("", 2D) = "white" {}
 	}
@@ -19,21 +21,21 @@
 			
 			struct v2f {
 				float4 pos : SV_POSITION;
-				float2 uv;
+				float2 uv : TEXCOORD0;
 			};
 			
 			//Our Vertex Shader
 			v2f vert(appdata_img v)
 			{
 				v2f o;
-			    o.pos = mul (UNITY_MATRIX_MVP, v.vertex);
+			    o.pos = UnityObjectToClipPos (v.vertex);
 			    o.uv =  v.texcoord.xy;
 			    return o;
 			}
 			
-			float4 frag(v2f i) : COLOR
+			float4 frag(v2f IN) : COLOR
 			{
-				float4 depth = float4(Linear01Depth(tex2D(_CameraDepthTexture, i.uv).r));
+				float4 depth = Linear01Depth(tex2D(_CameraDepthTexture, IN.uv).r);
 				return depth;
 			}
 			ENDCG

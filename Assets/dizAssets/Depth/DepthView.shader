@@ -1,4 +1,6 @@
-﻿// http://willychyr.com/2013/11/unity-shaders-depth-and-normal-textures-part-3/
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+// http://willychyr.com/2013/11/unity-shaders-depth-and-normal-textures-part-3/
 Shader "Custom/DepthView" {	
 	Properties {
 	   _MainTex ("", 2D) = "white" {}
@@ -32,7 +34,7 @@ Shader "Custom/DepthView" {
 			v2f vert( appdata_img v ) 
 			{
 				v2f o;
-				o.pos = mul (UNITY_MATRIX_MVP, v.vertex);
+				o.pos = UnityObjectToClipPos (v.vertex);
 				o.uv1.xy = v.texcoord.xy;
 				o.uv.xy = v.texcoord.xy;
 				

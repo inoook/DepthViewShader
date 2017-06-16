@@ -1,4 +1,6 @@
-﻿// http://forum.unity3d.com/threads/world-position-of-a-pixel-from-depth-texture.97671/
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+// http://forum.unity3d.com/threads/world-position-of-a-pixel-from-depth-texture.97671/
 Shader "Custom/RenderWorldPos"
 {
   SubShader
@@ -24,7 +26,7 @@ Shader "Custom/RenderWorldPos"
     {
       v2f o;
  
-        o.pos = mul (UNITY_MATRIX_MVP, v.vertex);
+        o.pos = UnityObjectToClipPos (v.vertex);
         o.uv.xy = ComputeScreenPos (o.pos);
  
       return o;

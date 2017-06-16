@@ -1,4 +1,6 @@
-﻿Shader "Custom/DepthNormals" {
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+Shader "Custom/DepthNormals" {
 	Properties {
 	   _MainTex ("", 2D) = "white" {}
 	   _HighlightDirection ("Highlight Direction", Vector) = (1, 0,0)
@@ -25,7 +27,7 @@
 		//Our Vertex Shader
 		v2f vert (appdata_base v){
 			v2f o;
-			o.pos = mul (UNITY_MATRIX_MVP, v.vertex);
+			o.pos = UnityObjectToClipPos (v.vertex);
 			o.scrPos = ComputeScreenPos(o.pos);
 			
 			#if UNITY_UV_STARTS_AT_TOP

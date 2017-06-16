@@ -1,4 +1,6 @@
-﻿// http://willychyr.com/2013/11/unity-shaders-depth-and-normal-textures-part-2/
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+// http://willychyr.com/2013/11/unity-shaders-depth-and-normal-textures-part-2/
 Shader "Custom/DepthRingPass" {
 
 Properties {
@@ -29,7 +31,7 @@ struct v2f {
 //Our Vertex Shader
 v2f vert (appdata_base v){
    v2f o;
-   o.pos = mul (UNITY_MATRIX_MVP, v.vertex);
+   o.pos = UnityObjectToClipPos (v.vertex);
    o.scrPos=ComputeScreenPos(o.pos);
    o.scrPos.y = 1 - o.scrPos.y;
    return o;
